@@ -21,6 +21,7 @@ userRouter.post('/signup', jsonParser, (request, response, next) => {
     })
     .then((token) => {
       logger.log(logger.INFO, 'USER - 200 code and a Token');
+      response.cookie('X-PubHub-Token', token, { maxAge: 900000 });
       return response.json({ token });
     })
     .then()
@@ -32,7 +33,10 @@ userRouter.get('/login', basicAuthMiddleware, (request, response, next) => {
     return next(new HttpError(404, 'ERROR user not found'));
   }
   return request.user.createTokenProm()
-    .then(token => response.json({ token }))
+    .then((token) => {
+      response.cookie('X-PubHub-Token', token, { maxAge: 900000 });
+      response.json({ token })
+    })
     .catch(next);
 });
 

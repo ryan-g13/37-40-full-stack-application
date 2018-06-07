@@ -28,8 +28,8 @@ class AuthForm extends React.Component {
 
   render() {
     let { type } = this.props;
-
     type = type === 'login' ? type : 'signup';
+    
     const signupJSX = 
       <input 
         name='email'
@@ -59,7 +59,7 @@ class AuthForm extends React.Component {
           onChange={this.handleChange}
         />
 
-         {signupRenderedJSX}
+        {signupRenderedJSX}
 
         <button type='submit'> {type} </button>
       </form>
