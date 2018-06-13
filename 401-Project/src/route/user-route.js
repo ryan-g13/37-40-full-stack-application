@@ -22,9 +22,8 @@ userRouter.post('/signup', jsonParser, (request, response, next) => {
     .then((token) => {
       logger.log(logger.INFO, 'USER - 200 code and a Token');
       response.cookie('X-PubHub-Token', token, { maxAge: 900000 });
-      return response.json({ token });
+      response.send(token);
     })
-    .then()
     .catch(next);
 });
 
@@ -35,7 +34,7 @@ userRouter.get('/login', basicAuthMiddleware, (request, response, next) => {
   return request.user.createTokenProm()
     .then((token) => {
       response.cookie('X-PubHub-Token', token, { maxAge: 900000 });
-      response.json({ token })
+      response.send(token);
     })
     .catch(next);
 });

@@ -13,6 +13,9 @@ const profileSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  bio: {
+    type: String,
+  },
   crawls: [
     {
       type: mongoose.Schema.Types.ObjectId,
